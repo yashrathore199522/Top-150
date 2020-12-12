@@ -1,0 +1,40 @@
+Using i , j, k  - O(n);
+//Dutch flag problem
+i/p - {0,0,1 ,0,2,2,1,2,1}
+o/p- {0,0,0,1,1,1,2,2,2}
+
+int i =0,j=0,k=n-1;
+while(j<=k)
+{
+
+if(arr[j]==0){
+swap(arr[i],arr[j];
+i++;
+j++;
+continue;
+}
+
+if(arr[j]==1){
+
+j++;
+continue;
+}
+
+if(arr[j]==2){
+swap(arr[j],arr[k]);
+k--;
+continue;
+}
+
+
+}
+
+Possible questions by the Interviewer
+
+    Dry runs the code by taking an example.
+    Why can’t we just count 0,1 and 2’s and then write the whole array again? Can we optimize the above code and reduce the swaps operations?
+    Can we solve this problem using two pointer approach?
+    Is this algorithm stable? If not then how to improve the algorithm and make it stable?
+    Why are we not increasing the value of mid if (a[mid] ==2)?
+    How can we modify the above code for a similar problem to sort the array containing 0s 1s 2s and 3s?
+    What is the famous linear time sorting algorithms? In which circumstances we use these algorithms? Apply the idea similar to counting sort for the solution of the above problem.
