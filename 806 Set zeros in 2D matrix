@@ -1,0 +1,79 @@
+// TC - O(m*n)
+// SC - 0(1)
+
+// to use 0(1) pehle row and column ko reference array maan lete hai. To pehle jab bhi 0 mile is index array ko 0 se update kardo
+// fir n se 1 tak loop and jiska bhi row ya column index 0 hai wo 0 hojaega
+
+class Solution {
+    public void setZeroes(int[][] mat) {
+        
+        boolean Cols=false;
+        boolean rows=false;
+        
+        for(int i =0 ;i<mat.length;i++){
+            
+            if(mat[i][0]==0){
+               Cols=true; 
+            }
+        }
+        
+         for(int i =0 ;i<mat[0].length;i++){
+            
+            if(mat[0][i]==0){
+               rows=true; 
+            }
+        }
+        
+        for(int i =mat.length-1 ;i>=1;i--){
+            
+            for(int j =mat[0].length-1; j>=1;j--){
+                if(mat[i][j]==0 && mat[0][j]!=0){
+                     mat[0][j]=0;
+                 }
+                if(mat[i][j]==0 && mat[i][0]!=0 ){
+                     mat[i][0]=0;
+                }
+                
+            }
+            
+            
+        }  
+        
+        for(int i =mat.length-1 ;i>=1;i--){
+            
+            for(int j =mat[0].length-1; j>=1;j--){
+                
+                 
+                
+                if(mat[i][j]!=0){
+                    // if(mat[i][j]==15){
+                    //     System.out.println(mat[i][0] + " " + mat[0][j]);
+                    // }
+                    if(mat[0][j]==0 ||  mat[i][0]==0 ){
+                        mat[i][j]=0;
+                    }
+                }
+                
+            }
+        }
+        
+         for(int i =0 ;i<mat.length;i++){
+            
+            if(Cols){
+                mat[i][0]=0;
+              
+            }
+        }
+                      
+      for(int i =0 ;i<mat[0].length;i++){
+            
+            if(rows){
+                mat[0][i]=0;
+              
+            }
+        }
+        
+      //  return mat;
+        
+    }
+}
