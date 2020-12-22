@@ -1,0 +1,106 @@
+O(nlogn) - TC
+O(n) - SC
+
+
+Input: arr[] = {8, 4, 2, 1}
+Output: 6
+
+Explanation: Given array has six inversions:
+(8, 4), (4, 2), (8, 2), (8, 1), (4, 1), (2, 1).
+
+Basic merge sort , keep on checking if right mai jaise hi chota aaye , left mai jis number se chota aaya hai uske right mai jitne numbers hai utne pair banenge
+public class InversionOfArray {
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		InversionOfArray obj = new InversionOfArray();
+		int a[]= {8, 4, 2, 1};
+		int ans =obj.mergesort(a,0,3);
+		System.out.println(ans+"ans");
+		for(Integer i : a) {
+			System.out.println(i);
+		}
+		int n =4;
+		
+	}
+	
+
+	public int mergesort(int a[],int l,int r) {
+		
+		int inv=0;
+		if(l<r) {
+		
+		int mid = (l+r)/2;
+		
+		inv += mergesort(a,l,mid);
+		inv += mergesort(a,mid+1,r);
+		
+		inv+=merge(a,l,mid,r);
+		
+		}
+		return inv;
+		
+	}
+	
+	public int merge(int a[],int l,int mid,int r) {
+		
+		
+		
+		
+		int inv =0;
+		int n1=mid-l+1;
+		int n2=r-mid;
+		int left[]= new int[mid-l+1];
+		int right[]= new int[r-mid];
+		
+		for(int i =0;i<n1;i++) {
+			left[i]=a[l+i];
+		}
+		
+		for(int j =0;j<n2;j++) {
+			right[j]=a[j+mid+1];
+			
+		}
+		
+	    int i =0;
+		int j=0;
+		int k=l;
+		while(i<n1 && j<n2) {
+			
+			if(left[i]<right[j]) {
+				a[k]=left[i];
+				i++;
+			}
+			else {
+				a[k]=right[j];
+				j++;
+				
+				//important
+				inv =inv+(mid+1-l-i); // wo numbers left set mai jo right se bade hai (3 5 6   2)
+				// 3>2 so , 5 , 6 se 2 pair banenge , here mid = 6 aur 2 ke bich , l,i=0,mid-i-l
+			}
+			k++;
+		}
+		
+	
+			while(i<n1) {
+				a[k]=left[i];
+				k++;
+				i++;
+		
+		}
+		
+		
+			while(j<n2) {
+				a[k]=right[j];
+				k++;
+				j++;
+			}
+		
+			return inv;
+		
+	}
+
+}
