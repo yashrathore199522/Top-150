@@ -1,0 +1,60 @@
+class Solution {
+    public int[] findOrder(int num, int[][] pr) {
+        //Topo Sort works for Direct acyclic graph(i.e no cycle in graphs) . Here consider pre req courses(0--1--2  so one should take 0 first then 1 then 2) and sort it , works like that
+        
+       
+        
+        List<Integer> gr[] = new ArrayList[num];
+        boolean vis [] = new boolean[num];
+        boolean[] inCurrStack = new boolean[num];
+        Stack<Integer> res = new Stack<>();
+        
+        for(int i=0; i<num; i++){
+            gr[i] = new ArrayList();
+        }
+        for(int[] pair: pr){            //Creating graph and adding it 0--1--2 ,  1--2 , 2--3
+            gr[pair[1]].add(pair[0]);
+        }
+        
+        for(int i=0; i<num; i++){
+            if(!vis[i]){
+                if(!dfs(i, inCurrStack, vis,gr, res)){
+                    return new int[0]; // checking for loop
+                }
+            }
+        }
+        
+        int[] result = new int[res.size()];
+        int i = 0;
+        while(!res.isEmpty()){
+            result[i++] = (int)res.pop();
+        }
+        return result;
+        }
+    
+    
+    
+    public boolean dfs(int n, boolean[] inCurrStack,boolean vis [] ,List<Integer> gr[] , Stack<Integer> res){
+        
+        if(inCurrStack[n])
+            return false;
+       
+        inCurrStack[n] = true;
+        
+        for(int i =0;i<gr[n].size();i++){
+            int vi = (int)gr[n].get(i);
+            if(!vis[vi]){ 
+                if(!dfs(vi,inCurrStack,vis,gr,res))
+                    return false;   // checking for loop
+            }
+        }
+        
+        inCurrStack[n] = false;
+        res.push(n);
+        vis[n]=true;
+        return true;
+        
+        
+    }
+        
+    }
